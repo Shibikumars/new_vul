@@ -1,0 +1,27 @@
+name: Pull Request Workflow
+
+on:
+  pull_request:
+    branches:
+      - main  # Or any other branch you want to run checks for
+
+jobs:
+  security_check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run security analysis
+      run: |
+        python security_check.py  # Replace this with your script that runs security analysis

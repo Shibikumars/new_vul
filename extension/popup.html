@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeBERT Vulnerability Detector</title>
+    <style>
+        body { font-family: Arial, sans-serif; width: 300px; margin: 0; padding: 10px; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        button { width: 100%; padding: 10px; font-size: 16px; }
+        #result { margin-top: 10px; white-space: pre-wrap; background: #f8f8f8; padding: 10px; border-radius: 5px; }
+        #fixBtn { margin-top: 10px; background: #4CAF50; color: white; border: none; border-radius: 5px; }
+        #fixArea { margin-top: 10px; background: #e8ffe8; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h3>Vulnerability Detector</h3>
+    <textarea id="codeInput" placeholder="Paste your code here..."></textarea>
+    <button id="checkBtn">Check Vulnerabilities</button>
+    <div id="result"></div>
+    <button id="fixBtn" style="display:none;">Apply Fix</button>
+    <div id="fixArea" style="display:none;"></div>
+    <script src="popup.js"></script>
+</body>
+</html>

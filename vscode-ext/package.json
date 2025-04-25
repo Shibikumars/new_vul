@@ -1,0 +1,35 @@
+{
+  "name": "codebert-vuln-detector",
+  "displayName": "CodeBERT Vulnerability Detector",
+  "description": "Detects code vulnerabilities using your CodeBERT backend API.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": ">=1.60.0"
+  },
+  "activationEvents": [
+    "onCommand:codebert-vuln-detector.checkVulnerabilities"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codebert-vuln-detector.checkVulnerabilities",
+        "title": "Check Code for Vulnerabilities"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "codebert-vuln-detector.checkVulnerabilities",
+          "when": "editorHasSelection",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "categories": ["Other"],
+  "scripts": {},
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
