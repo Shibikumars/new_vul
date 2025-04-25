@@ -1,71 +1,23 @@
-name: Security Check on Pull Request
+name: Security Check
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches: [ main ]
 
 jobs:
-  security_check:
+  vulnerability-scan:
     runs-on: ubuntu-latest
-
-    steps:name: Security Check
-    
-    on:
-      pull_request:
-        branches: [ main ]
-    
-    jobs:
-      vulnerability-scan:
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v3
-          - name: Set up Python
-            uses: actions/setup-python@v4
-            with:
-              python-version: '3.10'
-          - name: Install dependencies
-            run: |
-              pip install fastapi uvicorn
-              # Add your security tool install here (e.g., bandit, custom script)
-          - name: Run Vulnerability Check
-            run: |
-              # Example: run your code_review.py on the PR codebase
-              python sec_pull/backend/code_review.py --check . || exit 1name: Security Check
-              
-              on:
-                pull_request:
-                  branches: [ main ]
-              
-              jobs:
-                vulnerability-scan:
-                  runs-on: ubuntu-latest
-                  steps:
-                    - uses: actions/checkout@v3
-                    - name: Set up Python
-                      uses: actions/setup-python@v4
-                      with:
-                        python-version: '3.10'
-                    - name: Install dependencies
-                      run: |
-                        pip install fastapi uvicorn
-                        # Add your security tool install here (e.g., bandit, custom script)
-                    - name: Run Vulnerability Check
-                      run: |
-                        # Example: run your code_review.py on the PR codebase
-                        python sec_pull/backend/code_review.py --check . || exit 1
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python environment
-        uses: actions/setup-python@v2
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
-
+          python-version: '3.10'
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Assuming you have a requirements.txt file
-
-      - name: Run security check
+          pip install fastapi uvicorn
+          # Add your security tool install here (e.g., bandit, or your own script)
+      - name: Run Vulnerability Check
         run: |
-          python check_vulnerabilities.py  # This is where you'll call your backend to check the code
+          # Example: run your code_review.py or other script here
+          echo "Run your vulnerability detector here"
