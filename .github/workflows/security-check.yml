@@ -15,9 +15,16 @@ jobs:
           python-version: '3.10'
       - name: Install dependencies
         run: |
-          pip install fastapi uvicorn
-          # Add your security tool install here (e.g., bandit, or your own script)
-      - name: Run Vulnerability Check
+          pip install fastapi uvicorn transformers torch requests
+          # Install your backend dependencies for code_review.py
+      - name: Run Vulnerability Check (Demo)
         run: |
-          # Example: run your code_review.py or other script here
-          echo "Run your vulnerability detector here"
+          echo "Running demo vulnerability scan on backend/test.js"
+          python sec_pull/backend/code_review.py --file sec_pull/backend/test.js > security_report.txt
+          echo "--- SECURITY REPORT OUTPUT ---"
+          cat security_report.txt
+      - name: Upload Security Report Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: security_report.txt
