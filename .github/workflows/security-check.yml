@@ -1,27 +1,30 @@
-name: Security Check on Pull Request
+name: Security Check
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches: [ main ]
 
 jobs:
-  security_check:
+  vulnerability-scan:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python environment
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
-
+          python-version: '3.10'
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Assuming you have a requirements.txt file
-
-      - name: Run security check
+          pip install fastapi uvicorn transformers torch requests
+          # Install your backend dependencies for code_review.py
+      - name: Run Vulnerability Check (Demo)
         run: |
-          python check_vulnerabilities.py  # This is where you'll call your backend to check the code
+          echo "Running demo vulnerability scan on backend/test.js"
+          python sec_pull/backend/code_review.py --file sec_pull/backend/test.js > security_report.txt
+          echo "--- SECURITY REPORT OUTPUT ---"
+          cat security_report.txt
+      - name: Upload Security Report Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: security_report.txt
